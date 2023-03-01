@@ -71,6 +71,7 @@ export class content extends React.Component {
 			content = React.createElement(browser, {
 				user : this.props.user,
 				options : this.props.options,
+				lobby : this.props.lobby,
 				browser : this.props.browser,
 				stateChange: this.props.stateChange,
 				setOption : this.props.setOption,

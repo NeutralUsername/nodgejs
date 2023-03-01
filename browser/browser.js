@@ -19,7 +19,7 @@ export class browser extends React.Component {
 	render() {
 		let lobbies = []
 		this.props.browser.forEach(l => {
-			if(l.lobbyId != this.props.user.lobbyId)
+			if(l.lobbyId != this.props.lobby.id)
 				lobbies.push(React.createElement(lobby, {
 					key : l.LobbyId,
 					lobby: l,

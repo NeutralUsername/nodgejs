@@ -160,18 +160,21 @@ export class root extends React.Component {
 			})
 			break;
 		case "join_lobby":
-			let lobby = JSON.parse(data[1])
-			let messages = JSON.parse(data[2])
-			this.state.user.lobbyId = lobby.Id
-			if(this.state.incomingInvites.findIndex(invite => invite.lobbyId ) > -1){
-				this.state.incomingInvites.splice(this.state.incomingInvites.findIndex(invite => invite.lobbyId == lobby.Id), 1)
-			}
-			this.setState({
-				lobby : lobby,
-				lobbyMessages : messages,
-				incomingInvites : this.state.incomingInvites,
-				user : this.state.user,
-				content : "lobby"
+			this.state.lobby.members = []
+			this.setState({lobby : this.state.lobby}, () => {
+				let lobby = JSON.parse(data[1])
+				let messages = JSON.parse(data[2])
+				this.state.user.lobbyId = lobby.Id
+				if(this.state.incomingInvites.findIndex(invite => invite.lobbyId ) > -1){
+					this.state.incomingInvites.splice(this.state.incomingInvites.findIndex(invite => invite.lobbyId == lobby.Id), 1)
+				}
+				this.setState({
+					lobby : lobby,
+					lobbyMessages : messages,
+					incomingInvites : this.state.incomingInvites,
+					user : this.state.user,
+					content : "lobby"
+				})
 			})
 			break;
 		case "lobby_joiner" :

@@ -40,7 +40,7 @@ export class users extends React.Component {
         for(let i = 0; i < this.props.lobby.members.length; i++) {
             let lobby_user = this.props.lobby.members[i]
             users.push(React.createElement(user, {
-                key : lobby_user.id+ " "+ new Date().toISOString(),
+                key : lobby_user.id,
                 lobbyUser : lobby_user,
                 user : this.props.user,
                 options : this.props.options,

@@ -161,6 +161,7 @@ export class root extends React.Component {
 			break;
 		case "join_lobby":
 			this.state.lobby.members = []
+			this.state.lobby.currentInvites = []
 			this.setState({lobby : this.state.lobby}, () => {
 				let lobby = JSON.parse(data[1])
 				let messages = JSON.parse(data[2])

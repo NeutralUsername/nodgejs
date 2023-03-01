@@ -23,7 +23,7 @@ export class users extends React.Component {
 
 	render() {
         let users = []
-        let sortedLoobyUsers = this.props.lobbyUsers.sort((a, b) => {
+        let sortedLoobyUsers = this.props.lobby.members.sort((a, b) => {
             if(a.name < b.name) return -1
             if(a.name > b.name) return 1
             return 0
@@ -37,8 +37,8 @@ export class users extends React.Component {
                 break
            }
         }
-        for(let i = 0; i < this.props.lobbyUsers.length; i++) {
-            let lobby_user = this.props.lobbyUsers[i]
+        for(let i = 0; i < this.props.lobby.members.length; i++) {
+            let lobby_user = this.props.lobby.members[i]
             users.push(React.createElement(user, {
                 key : lobby_user.id,
                 lobbyUser : lobby_user,
@@ -46,11 +46,10 @@ export class users extends React.Component {
                 options : this.props.options,
                 lobby : this.props.lobby,
                 lobbyMessages : this.props.lobbyMessages,
-                lobbyUsers : this.props.lobbyUsers,
             }))
         }
-        for(let i = 0; i < this.props.outgoingInvites.length; i++) {
-            let invite_data = this.props.outgoingInvites[i]
+        for(let i = 0; i < this.props.lobby.currentInvites.length; i++) {
+            let invite_data = this.props.lobby.currentInvites[i]
             users.push(React.createElement(invite, {
                 key : invite_data.id,
                 invite : invite_data,

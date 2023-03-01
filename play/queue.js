@@ -33,7 +33,7 @@ export class queue extends React.Component {
 				onClick : () => {
 					this.props.queue == false ? WS.send("joinMatchmaking") : WS.send("leaveMatchmaking")
 				},
-				disabled : this.props.lobbyUsers.findIndex(user => user.ingame) > -1 ? true : false,
+				disabled : this.props.lobby.members.findIndex(user => user.ingame) > -1 ? true : false,
 				style : {
 					height : "17vmin",
 					width : "24.3vmin",

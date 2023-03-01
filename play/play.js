@@ -46,12 +46,12 @@ export class play extends React.Component {
 			this.props.options.playMode == "custom" ? React.createElement(custom, {
 				options : this.props.options,
 				user: this.props.user,
-				lobbyUsers : this.props.lobbyUsers,
+				lobby : this.props.lobby,
 			}, ) :
 			React.createElement(queue, {
                 options : this.props.options,
                 user: this.props.user,
-				lobbyUsers : this.props.lobbyUsers,
+				lobby : this.props.lobby,
 				queue : this.props.queue,
             }, )
 		)

@@ -75,10 +75,8 @@ export class root extends React.Component {
 			this.state.boardString = data[5]
 			this.state.lobby = JSON.parse(data[6])
 			this.state.lobbyMessages = JSON.parse(data[7])
-			this.state.lobbyUsers = JSON.parse(data[8])
-			this.state.outgoingInvites = JSON.parse(data[9])
-			this.state.incomingInvites = JSON.parse(data[10])
-			this.state.game = JSON.parse(data[11])
+			this.state.incomingInvites = JSON.parse(data[8])
+			this.state.game = JSON.parse(data[9])
 			if(this.state.game) {
 				this.state.loadedTurnIndex = this.state.game.turns.length
 				this.state.loadedStepIndex = -1
@@ -91,8 +89,6 @@ export class root extends React.Component {
 				boardString : this.state.boardString,
 				lobby : this.state.lobby,
 				lobbyMessages : this.state.lobbyMessages,
-				lobbyUsers : this.state.lobbyUsers,
-				outgoingInvites : this.state.outgoingInvites,
 				incomingInvites : this.state.incomingInvites,
 				game : this.state.game,
 				loadedTurnIndex : this.state.loadedTurnIndex,
@@ -165,18 +161,14 @@ export class root extends React.Component {
 			break;
 		case "join_lobby":
 			let lobby = JSON.parse(data[1])
-			let users = JSON.parse(data[2])
-			let messages = JSON.parse(data[3])
-			let outgoingInvites = JSON.parse(data[4])
+			let messages = JSON.parse(data[2])
 			this.state.user.lobbyId = lobby.Id
 			if(this.state.incomingInvites.findIndex(invite => invite.lobbyId ) > -1){
 				this.state.incomingInvites.splice(this.state.incomingInvites.findIndex(invite => invite.lobbyId == lobby.Id), 1)
 			}
 			this.setState({
 				lobby : lobby,
-				lobbyUsers : users,
 				lobbyMessages : messages,
-				outgoingInvites : outgoingInvites,
 				incomingInvites : this.state.incomingInvites,
 				user : this.state.user,
 				content : "lobby"
@@ -184,22 +176,20 @@ export class root extends React.Component {
 			break;
 		case "lobby_joiner" :
 			let newUser = JSON.parse(data[1])
-			this.state.lobbyUsers.push(newUser)
-			if(this.state.outgoingInvites.findIndex(invite => invite.id == newUser.id) > -1)
-				this.state.outgoingInvites.splice(this.state.outgoingInvites.findIndex(invite => invite.id == newUser.id), 1)
+			this.state.lobby.members.push(newUser)
+			if(this.state.lobby.currentInvites.findIndex(invite => invite.id == newUser.id) > -1)
+				this.state.lobby.currentInvites.splice(this.state.lobby.currentInvites.findIndex(invite => invite.id == newUser.id), 1)
 			this.setState({
-				lobbyUsers : this.state.lobbyUsers,
-				outgoingInvites : this.state.outgoingInvites,
+				lobby : this.state.lobby,
 			})
 			break;
 		case "lobby_leaver": 
-			this.state.lobbyUsers.splice(this.state.lobbyUsers.findIndex(user => user.id == data[1]), 1)
+			this.state.lobby.members.splice(this.state.lobby.members.findIndex(user => user.id == data[1]), 1)
 			if(this.state.lobby.leaderId != data[2]) {
 				this.state.lobby.public = false
 				this.state.lobby.leaderId = data[2]
 			}
 			this.setState({
-				lobbyUsers : this.state.lobbyUsers,
 				lobby : this.state.lobby,
 			})
 			break;
@@ -235,12 +225,12 @@ export class root extends React.Component {
 			this.setState({incomingInvites : this.state.incomingInvites})
 			break;
 		case "add_out_invite":
-			this.state.outgoingInvites.push(JSON.parse(data[1]))
-			this.setState({outgoingInvites : this.state.outgoingInvites})
+			this.state.lobby.currentInvites.push(JSON.parse(data[1]))
+			this.setState({lobby : this.state.lobby})
 			break;
 		case "del_out_invite" : 
-			this.state.outgoingInvites.splice(this.state.outgoingInvites.findIndex(invite => invite.id == data[1]), 1)
-			this.setState({outgoingInvites : this.state.outgoingInvites})
+			this.state.lobby.currentInvites.splice(this.state.lobby.currentInvites.findIndex(invite => invite.id == data[1]), 1)
+			this.setState({lobby : this.state.lobby})
 			break;
 		case "del_inc_invite":
 			this.state.incomingInvites.splice(this.state.incomingInvites.findIndex(invite => invite.lobbyId == data[1]), 1)
@@ -249,9 +239,9 @@ export class root extends React.Component {
 		case "team":
 			if(data[2] == this.state.user.id) 
 				this.state.user.team = parseInt(data[1])
-			this.state.lobbyUsers[this.state.lobbyUsers.findIndex(user => user.id == data[2])].team = parseInt(data[1])
+			this.state.lobby.members[this.state.lobby.members.findIndex(user => user.id == data[2])].team = parseInt(data[1])
 			this.setState({
-				lobbyUsers : this.state.lobbyUsers,
+				lobby : this.state.lobby,
 				user : this.state.user
 			})
 			break
@@ -281,7 +271,7 @@ export class root extends React.Component {
 			this.state.game = JSON.parse(data[1])
 			this.state.content = "game"
 			this.state.user.ingame = true
-			this.state.lobbyUsers.forEach(lobbyUser => lobbyUser.ingame = true)
+			this.state.lobby.members.forEach(lobbyUser => lobbyUser.ingame = true)
 			this.state.loadedTurnIndex = 0
 			this.state.loadedStepIndex = -1
 			this.state.previousCommand = "0,0,0"
@@ -290,7 +280,7 @@ export class root extends React.Component {
 				game : this.state.game,
 				content : this.state.content,
 				user : this.state.user,
-				lobbyUsers : this.state.lobbyUsers,
+				lobby : this.state.lobby,
 				loadedTurnIndex : this.state.loadedTurnIndex,
 				loadedStepIndex : this.state.loadedStepIndex,
 				previousCommand : this.state.previousCommand,
@@ -299,25 +289,25 @@ export class root extends React.Component {
 		case "gameEnd":
 			this.state.user.ingame = false
 			this.state.game.ended = true
-			this.state.lobbyUsers.forEach(lobbyUser => lobbyUser.ingame = false)
+			this.state.lobby.members.forEach(lobbyUser => lobbyUser.ingame = false)
 			PLOPSOUND.play()
 			this.setState({
 				user : this.state.user,
-				lobbyUsers : this.state.lobbyUsers,
+				lobby : this.state.lobby,
 				game : this.state.game,
 			})
 			break;
 		case "gameLeave":
 			if (data[1] == this.state.user.id) {
 				this.state.user.ingame = false
-				this.state.lobbyUsers.find(user => user.id == data[1]).ingame = false
+				this.state.lobby.members.find(user => user.id == data[1]).ingame = false
 				this.state.content = "lobby"
 			}
-			else this.state.lobbyUsers.find(user => user.id == data[1]).ingame = false
+			else this.state.lobby.members.find(user => user.id == data[1]).ingame = false
 			this.setState({
 				user : this.state.user,
 				content : this.state.content,
-				lobbyUsers : this.state.lobbyUsers,
+				lobby : this.state.lobby,
 			})
 			break;
 		case "turnStart":
@@ -457,7 +447,6 @@ export class root extends React.Component {
 				user : this.state.user,
 				lobby : this.state.lobby,
 				lobbyMessages : this.state.lobbyMessages,
-				lobbyUsers : this.state.lobbyUsers,
 				boardString : this.state.boardString,
 				editor : this.state.editor,
 				stateChange : this.stateChange,
@@ -467,7 +456,6 @@ export class root extends React.Component {
 				browser : this.state.browser,
 				lastBrowserUpdate : this.state.lastBrowserUpdate,
 				profileInput : this.state.profileInput,
-				outgoingInvites : this.state.outgoingInvites,
 				loadedTurnIndex : this.state.loadedTurnIndex,
 				loadedStepIndex : this.state.loadedStepIndex,
 				commandCount : this.state.commandCount,
@@ -500,7 +488,6 @@ export class root extends React.Component {
 					selectedChat : this.state.selectedChat,
 					lobby : this.state.lobby,
 					lobbyMessages : this.state.lobbyMessages,
-					lobbyUsers : this.state.lobbyUsers,
 					incomingInvites : this.state.incomingInvites,
 					setOption : this.setOption,
 					stateChange: this.stateChange,
@@ -514,7 +501,6 @@ export class root extends React.Component {
 					selectedChat : this.state.selectedChat,
 					lobby : this.state.lobby,
 					lobbyMessages : this.state.lobbyMessages,
-					lobbyUsers : this.state.lobbyUsers,
 					messageInputSelected : this.state.messageInputSelected,
 					setOption : this.setOption,
 					stateChange: this.stateChange,

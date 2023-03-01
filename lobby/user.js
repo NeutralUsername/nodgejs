@@ -42,7 +42,7 @@ export class user extends React.Component {
                     marginTop : ".4vmin",
                 },
             },) : null,
-            (this.props.lobby.leaderId == this.props.user.id && (this.props.lobbyMessages.length > 0 || this.props.lobbyUsers.length > 1))|| (this.props.lobby.leaderId != this.props.user.id && this.props.lobbyUser.id == this.props.user.id)? React.createElement("img", {
+            (this.props.lobby.leaderId == this.props.user.id && (this.props.lobbyMessages.length > 0 || this.props.lobby.members.length > 1))|| (this.props.lobby.leaderId != this.props.user.id && this.props.lobbyUser.id == this.props.user.id)? React.createElement("img", {
                 src: this.props.options.uiTheme ==="dark" ? "https://nodge.s3.eu-central-1.amazonaws.com/x_w.png" : "https://nodge.s3.eu-central-1.amazonaws.com/x_b.png",
                 style: {
                     cursor : "pointer",

@@ -102,7 +102,7 @@ export class custom extends React.Component {
 				}
 			},
 				React.createElement("button", {
-					disabled : this.props.lobbyUsers.findIndex(user => user.ingame) > -1 ? true : false,
+					disabled : this.props.lobby.members.findIndex(user => user.ingame) > -1 ? true : false,
 					style : {
 						fontSize : "2.8vmin",
 					},

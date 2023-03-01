@@ -43,8 +43,6 @@ export class content extends React.Component {
 				options : this.props.options,
 				lobby : this.props.lobby,
 				lobbyMessages : this.props.lobbyMessages,
-				lobbyUsers : this.props.lobbyUsers,
-				outgoingInvites : this.props.outgoingInvites,
 				stateChange: this.props.stateChange,
 				setOption : this.props.setOption,
 				queue : this.props.queue,

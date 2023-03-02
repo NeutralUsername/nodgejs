@@ -107,7 +107,7 @@ export class status extends React.Component {
 				}
 			},
 				this.props.game.activeTurn? 
-				React.createElement("i", {}, (this.props.getTimer() / 1000).toFixed(0)) : 
+				React.createElement("i", {},this.props.getTimer() > 0 ?  (this.props.getTimer() / 1000).toFixed(1) : 0) : 
 				React.createElement("b", {
 					style : {
 						fontSize : "4vmin",

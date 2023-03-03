@@ -77,6 +77,7 @@ export class root extends React.Component {
 			this.state.lobbyMessages = JSON.parse(data[7])
 			this.state.incomingInvites = JSON.parse(data[8])
 			this.state.game = JSON.parse(data[9])
+			this.state.queue = JSON.parse(data[10])
 			if(this.state.game) {
 				this.state.loadedTurnIndex = this.state.game.turns.length
 				this.state.loadedStepIndex = -1
@@ -91,6 +92,7 @@ export class root extends React.Component {
 				lobbyMessages : this.state.lobbyMessages,
 				incomingInvites : this.state.incomingInvites,
 				game : this.state.game,
+				queue : this.state.queue,
 				loadedTurnIndex : this.state.loadedTurnIndex,
 				loadedStepIndex : this.state.loadedStepIndex,
 				content : "lobby",

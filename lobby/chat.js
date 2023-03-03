@@ -20,7 +20,7 @@ export class chat extends React.Component {
 	render() {
         let messages = []
         let sortedMessages = this.props.lobbyMessages.sort((a, b) => {
-            return new Date(a.sentAt).valueOf() - new Date(b.sentAt).valueOf()
+            return new Date(b.sentAt).valueOf() - new Date(a.sentAt).valueOf()
         })
         for(let i = 0; i < this.props.lobbyMessages.length; i++) {
             let messageData = sortedMessages[i]

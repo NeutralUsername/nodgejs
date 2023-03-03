@@ -14,9 +14,6 @@ import {
 	lobby
 } from "../lobby/lobby.js"
 import {
-	feedback,
-} from "../feedback/feedback.js"
-import {
 	editor
 } from "../editor/editor.js"
 import{
@@ -123,14 +120,6 @@ export class content extends React.Component {
 				user : this.props.user,
 				boardString : this.props.boardString,
 				stateChange: this.props.stateChange,
-			})
-		}
-		if(this.props.content === "feedback") {
-			content = React.createElement(feedback, {
-				user : this.props.user,
-				options : this.props.options,
-				stateChange: this.props.stateChange,
-				setOption : this.props.setOption,
 			})
 		}
 		return React.createElement("div", {

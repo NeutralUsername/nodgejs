@@ -1,5 +1,5 @@
 # nodgejs
-![](https://raw.githubusercontent.com/NeutralUsername/nodgejs/master/sCWXaPtDrQ.gif)![](https://github.com/NeutralUsername/nodgejs/blob/master/NBaYP1HY2f.gif?raw=true)
+![](https://github.com/NeutralUsername/nodgejs/blob/master/NBaYP1HY2f.gif?raw=true)
 
 the frontend for https://playnodge.com
 

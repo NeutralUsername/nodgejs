@@ -423,6 +423,10 @@ export class root extends React.Component {
 			} 
 		}, 1000, this.state)
 	}
+	stopAnimation = () => {
+		if (this.state.user.ingame) return
+		clearTimeout(this.state.animationTimeout)
+	}
 	render() {
 		return	React.createElement('div', {
 			onContextMenu: e => {
@@ -474,6 +478,7 @@ export class root extends React.Component {
 				lastTurn : this.lastTurn,
 				lastTurnStep : this.lastTurnStep,
 				playTurnSteps : this.playTurnSteps,
+				stopAnimation : this.stopAnimation,
 			}) : "",
 			React.createElement("div", {
 				style : {

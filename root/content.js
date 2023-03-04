@@ -61,6 +61,7 @@ export class content extends React.Component {
 				selectedReplayNode : this.props.selectedReplayNode,
 				selectedPlayer : this.props.selectedPlayer,
 				playTurnSteps : this.props.playTurnSteps,
+				stopAnimation : this.props.stopAnimation,
 				messageInputSelected : this.props.messageInputSelected,
 			})
 		}	

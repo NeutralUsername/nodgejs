@@ -45,6 +45,12 @@ export class game extends React.Component {
 			case "R":
 				this.emitReset()
 				break
+			case "o":
+				this.props.PlayTurnSteps()
+				break
+			case "p":
+				this.props.stopAnimation()
+				break
 			case "ArrowLeft":
 				e.preventDefault()
 				if (this.props.loadedStepIndex > -1) {
@@ -423,7 +429,7 @@ export class game extends React.Component {
 				stateChange : this.props.stateChange,
 				lastTurn : this.props.lastTurn,
 				lastTurnStep : this.props.lastTurnStep,
-				playTurnSteps : this.props.playTurnSteps,
+				/* playTurnSteps : this.props.playTurnSteps, */
 			}),
 			React.createElement("div", {
 				style : {

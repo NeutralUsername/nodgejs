@@ -406,7 +406,7 @@ export class menu extends React.Component {
 					disabled : this.props.lobby.invites == false,
 					onClick : () => {
 						this.setState({linkedCopied : true})
-						/* navigator.clipboard.writeText("dawdd") */
+						navigator.clipboard.writeText("dawdd")
 					}
 				}, "copy invite link"),
 				React.createElement("label" , {

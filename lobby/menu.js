@@ -386,7 +386,7 @@ export class menu extends React.Component {
 				),
 			),
 
-			React.createElement("div", {
+			/* React.createElement("div", {
 				style : {
 					display : "flex",
 					flexDirection : "column",
@@ -412,7 +412,7 @@ export class menu extends React.Component {
 				React.createElement("label" , {
 				
 				},this.state.linkedCopied ? "copied to clipboard" : ""),
-			)
+			) */
 		)
 	}
 } 

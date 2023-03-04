@@ -46,7 +46,7 @@ export class game extends React.Component {
 				this.emitReset()
 				break
 			case "o":
-				this.props.PlayTurnSteps()
+				this.props.playTurnSteps()
 				break
 			case "p":
 				this.props.stopAnimation()

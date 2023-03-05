@@ -110,7 +110,7 @@ export class custom extends React.Component {
 						WS.send(constructMessage("custom", [this.state.board, this.state.turnLimit]))
 					}
 				}, "start custom"),
-				React.createElement("buton", {
+				React.createElement("button", {
 					onClick : () => {
 						WS.send(constructMessage("aiTest", []))
 					}
